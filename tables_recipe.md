@@ -75,7 +75,7 @@ password: text
 Table: posts
 id: SERIAL
 massage: text
-time_made: time
+time_made: datetime
 account_id: int
 ```
 
@@ -125,7 +125,7 @@ CREATE TABLE accounts (
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   message text,
-  time_made time,
+  time_made timestamp,
 -- The foreign key name is always {other_table_singular}_id
   account_id int,
   constraint fk_account foreign key(account_id)
