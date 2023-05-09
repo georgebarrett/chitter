@@ -43,4 +43,19 @@ describe AccountRepository do
     expect(accounts.password).to eq 'tbh'
   end
 
+  it 'creates an account' do
+    new_account = Account.new
+    new_account.user_name = 'Saxon'
+    new_account.email = 'saxon@gmail.com'
+    new_account.password = 'hmu'
+
+    repo = AccountRepository.new
+    repo.create(new_account)
+
+    accounts = repo.all
+    expect(accounts[-1].user_name).to eq 'Saxon'
+    expect(accounts[-1].email).to eq 'saxon@gmail.com'
+    expect(accounts[-1].password).to eq 'hmu'
+  end
+
 end
