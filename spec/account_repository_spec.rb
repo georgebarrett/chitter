@@ -33,4 +33,14 @@ describe AccountRepository do
     expect(accounts.password).to eq 'lol'
   end
 
+  it 'gets the details of another single account' do
+    repo = AccountRepository.new
+
+    accounts = repo.find(2)
+
+    expect(accounts.user_name).to eq 'Aphra'
+    expect(accounts.email).to eq 'aphra@gmail.com'
+    expect(accounts.password).to eq 'tbh'
+  end
+
 end
