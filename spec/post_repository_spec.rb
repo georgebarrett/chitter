@@ -78,4 +78,21 @@ describe PostRepository do
     all_posts = repo.all
     expect(all_posts.length).to eq 0
   end
+
+  it 'updates a post' do 
+    repo = PostRepository.new
+
+    post = repo.find(1)
+    post.message = 'BREAKING NEWS'
+    post.time_made = '2023-02-11 15:30:10'
+    post.account_id = 1
+
+    repo.update(post)
+
+    updated_post = repo.find(1)
+    
+    expect(updated_post.message).to eq 'BREAKING NEWS'
+    expect(updated_post.time_made).to eq '2023-02-11 15:30:10'
+    expect(updated_post.account_id).to eq 1
+  end
 end
