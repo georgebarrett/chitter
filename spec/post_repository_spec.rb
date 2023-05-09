@@ -68,4 +68,14 @@ describe PostRepository do
     expect(all_posts.length).to eq 1
     expect(all_posts[0].id).to eq 2
   end
+
+  it 'deletes multiple posts' do
+    repo = PostRepository.new
+
+    repo.delete(1)
+    repo.delete(2)
+
+    all_posts = repo.all
+    expect(all_posts.length).to eq 0
+  end
 end
