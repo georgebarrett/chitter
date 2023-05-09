@@ -58,16 +58,16 @@ describe AccountRepository do
     expect(accounts[-1].password).to eq 'hmu'
   end
 
-  # it 'deletes an account with the id of 1' do
-  #   repo = AccountRepository.new
-  #   id_to_delete = 1
+  it 'deletes an account with the id of 1' do
+    repo = AccountRepository.new
+    id_to_delete = 1
 
-  #   repo.delete(id_to_delete)
-  #   all_accounts = repo.all
+    repo.delete(id_to_delete)
+    all_accounts = repo.all
     
-  #   expect(all_accounts.length).to eq 1
-  #   expect(all_accounts[0].id).to eq 2
-  # end
+    expect(all_accounts.length).to eq 1
+    expect(all_accounts[0].id).to eq 2
+  end
 
   it 'updates an entire post' do 
     repo = AccountRepository.new
