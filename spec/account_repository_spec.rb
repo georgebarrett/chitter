@@ -86,4 +86,17 @@ describe AccountRepository do
     expect(updated_account.password).to eq 'lol'
   end
 
+  it 'updates only one value of an account' do
+    repo = AccountRepository.new
+
+    account = repo.find(2)
+    account.user_name = 'Aphra'
+
+    repo.update(account)
+    updated_account = repo.find(2)
+    
+    expect(updated_account.user_name).to eq 'Aphra'
+    expect(updated_account.email).to eq 'aphra@gmail.com'
+  end
+
 end
