@@ -18,8 +18,19 @@ describe AccountRepository do
 
     expect(accounts.length).to eq 2
     expect(accounts[0].id).to eq 1
+    expect(accounts[0].user_name).to eq 'George'
     expect(accounts[0].email).to eq 'george@gmail.com'
     expect(accounts[0].password).to eq 'lol'
+  end
+
+  it 'gets a single account' do
+    repo = AccountRepository.new
+
+    accounts = repo.find(1)
+
+    expect(accounts.user_name).to eq 'George'
+    expect(accounts.email).to eq 'george@gmail.com'
+    expect(accounts.password).to eq 'lol'
   end
 
 end
