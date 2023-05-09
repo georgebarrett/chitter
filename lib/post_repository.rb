@@ -14,6 +14,15 @@ class PostRepository
     return posts
   end
 
+  def find(id)
+    sql = 'SELECT id, message, time_made, account_id FROM posts WHERE id =$1;'
+    sql_params = [id]
+    result = DatabaseConnection.exec_params(sql, sql_params)
+    record = result[0]
+
+    return record_to_post_object(record)
+  end
+
   private
 
   def record_to_post_object(record)
