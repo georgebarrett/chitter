@@ -95,4 +95,17 @@ describe PostRepository do
     expect(updated_post.time_made).to eq '2023-02-11 15:30:10'
     expect(updated_post.account_id).to eq 1
   end
+
+  it 'updates only one value of a post' do
+    repo = PostRepository.new
+
+    post = repo.find(1)
+    post.message = 'BREAKING NEWS'
+
+    repo.update(post)
+    updated_post = repo.find(1)
+    
+    expect(updated_post.message).to eq 'BREAKING NEWS'
+    expect(updated_post.time_made).to eq '2023-02-11 15:30:10'
+  end
 end
