@@ -23,6 +23,15 @@ class PostRepository
     return record_to_post_object(record)
   end
 
+  def create(post)
+    sql = 'INSERT INTO posts (message, time_made, account_id) VALUES ($1, $2, $3);'
+    sql_params = [post.message, post.time_made, post.account_id]
+    result = DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
+  end
+
+
   private
 
   def record_to_post_object(record)

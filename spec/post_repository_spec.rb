@@ -42,4 +42,19 @@ describe PostRepository do
     expect(posts.time_made).to eq '2023-02-11 16:45:35'
     expect(posts.account_id).to eq 2
   end
+
+  it 'creates a post' do
+    new_post = Post.new
+    new_post.message = 'NOW THE WEATHER'
+    new_post.time_made = '2023-07-05 09:00:00'
+    new_post.account_id = 2
+
+    repo = PostRepository.new
+    repo.create(new_post)
+
+    posts = repo.all
+    expect(posts[-1].message).to eq 'NOW THE WEATHER'
+    expect(posts[-1].time_made).to eq '2023-07-05 09:00:00'
+    expect(posts[-1].account_id).to eq 2
+  end
 end
