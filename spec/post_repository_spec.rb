@@ -32,4 +32,14 @@ describe PostRepository do
     expect(posts.time_made).to eq '2023-02-11 15:30:10'
     expect(posts.account_id).to eq 1
   end
+
+  it 'gets a different single post' do
+    repo = PostRepository.new
+
+    posts = repo.find(2)
+    
+    expect(posts.message).to eq 'MORE BREAKING NEWS'
+    expect(posts.time_made).to eq '2023-02-11 16:45:35'
+    expect(posts.account_id).to eq 2
+  end
 end
