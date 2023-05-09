@@ -57,4 +57,15 @@ describe PostRepository do
     expect(posts[-1].time_made).to eq '2023-07-05 09:00:00'
     expect(posts[-1].account_id).to eq 2
   end
+
+  it 'deletes a post with id if 1' do 
+    repo = PostRepository.new
+    id_to_delete = 1
+
+    repo.delete(id_to_delete)
+    all_posts = repo.all
+
+    expect(all_posts.length).to eq 1
+    expect(all_posts[0].id).to eq 2
+  end
 end
