@@ -13,9 +13,9 @@ class Application < Sinatra::Base
     also_reload 'lib/post_repository'
   end
 
-    
-
-
+  get '/' do
+    return erb(:index)
+  end
 
 end
 
