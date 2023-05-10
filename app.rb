@@ -33,5 +33,20 @@ class Application < Sinatra::Base
     return erb(:account_created)
   end
 
+  get '/new_post' do
+    return erb(:new_post)
+  end
+
+  post '/posts' do
+    repo = PostRepository.new
+    new_post = Post.new
+    new_post.message = params[:message]
+    new_post.time_made = params[:time_made]
+
+    repo.create(new_post)
+
+    return erb(:post_created)
+  end
+
 end
 

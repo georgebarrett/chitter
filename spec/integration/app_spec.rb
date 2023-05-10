@@ -25,4 +25,13 @@ describe Application do
     end
   end
 
+  context 'POST posts' do
+    it 'creates a new post' do
+      response = post('/posts', message: 'EVEN MORE BRAKING NEWS', time_made: '2023-05-01 11:45:23')
+
+      expect(response.status).to eq (200)
+      expect(response.body).to include('<h1>You have successfully created a new post</h1>')
+    end
+  end
+
 end
