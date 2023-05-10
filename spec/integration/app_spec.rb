@@ -23,6 +23,13 @@ describe Application do
       expect(response.status).to eq (200)
       expect(response.body).to include('<h1>You have successfully created a Chitter account</h1>')
     end
+
+    it 'fails if email or username already exists' do
+      response = post('/accounts', name: 'George', username: 'G-unit', email: 'george@gmail.com', password: 'lol')
+
+      expect(response.status).to eq(400)
+      expect(response.body).to include('This account already exists.')
+    end
   end
 
   context 'POST posts' do

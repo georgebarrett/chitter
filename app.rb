@@ -23,16 +23,29 @@ class Application < Sinatra::Base
   end
 
   post '/accounts' do
-    repo = AccountRepository.new
     new_account = Account.new
     new_account.name = params[:name]
     new_account.user_name = params[:user_name]
     new_account.email = params[:email]
     new_account.password = params[:password]
 
-    repo.create(new_account)
+    repo = AccountRepository.new
 
-    return erb(:account_created)
+    if account_already_exists
+      status 400
+      return 'This account already exists.'
+    else
+      repo.create(new_account)
+      return erb(:account_created)
+    end
+  end
+
+  def account_already_exists
+    repo = AccountRepository.new
+    repo.all.each do |user|
+      return true if user.user_name == params[:user_name] || user.email == params[:email]
+    end
+    return false
   end
 
   get '/new_post' do
