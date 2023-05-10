@@ -3,6 +3,7 @@ require "sinatra/reloader"
 require_relative 'lib/database_connection'
 require_relative 'lib/account_repository'
 require_relative 'lib/post_repository'
+require 'date'
 
 DatabaseConnection.connect
 
@@ -41,11 +42,18 @@ class Application < Sinatra::Base
     repo = PostRepository.new
     new_post = Post.new
     new_post.message = params[:message]
-    new_post.time_made = params[:time_made]
+    new_post.time_made = Time.now
+    new_post.account_id = 1 # refactor 
 
     repo.create(new_post)
 
     return erb(:post_created)
+  end
+
+  get '/list_posts' do
+    repo = PostRepository.new
+    @posts = repo.all
+    return erb(:list_posts)
   end
 
 end

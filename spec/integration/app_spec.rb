@@ -27,10 +27,21 @@ describe Application do
 
   context 'POST posts' do
     it 'creates a new post' do
-      response = post('/posts', message: 'EVEN MORE BRAKING NEWS', time_made: '2023-05-01 11:45:23')
+      response = post('/posts', message: 'EVEN MORE BREAKING NEWS', time_made: '2023-05-01 11:45:23')
 
       expect(response.status).to eq (200)
       expect(response.body).to include('<h1>You have successfully created a new post</h1>')
+    end
+  end
+
+  context 'GET /posts' do
+    it "outputs a list of all posts HTML formatted" do
+      response = get('/list_posts')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<h1>Posts</h1>')
+      expect(response.body).to include('BREAKING NEWS')
+      expect(response.body).to include('2023-02-11 15:30:10')
     end
   end
 
