@@ -3,7 +3,7 @@ require_relative 'account'
 class AccountRepository
 
   def all
-    sql = 'SELECT id, user_name, email, password FROM accounts;'
+    sql = 'SELECT id, name, user_name, email, password FROM accounts;'
     result = DatabaseConnection.exec_params(sql, []) 
 
     accounts = []
@@ -15,7 +15,7 @@ class AccountRepository
   end
 
   def find(id)
-    sql = 'SELECT id, user_name, email, password FROM accounts WHERE id = $1;'
+    sql = 'SELECT id, name, user_name, email, password FROM accounts WHERE id = $1;'
     sql_params = [id]
     result = DatabaseConnection.exec_params(sql, sql_params)
     record = result[0]
@@ -24,8 +24,8 @@ class AccountRepository
   end
 
   def create(account)
-    sql = 'INSERT INTO accounts (user_name, email, password) VALUES ($1, $2, $3);'
-    sql_params = [account.user_name, account.email, account.password]
+    sql = 'INSERT INTO accounts (name, user_name, email, password) VALUES ($1, $2, $3, $4);'
+    sql_params = [account.name, account.user_name, account.email, account.password]
     result = DatabaseConnection.exec_params(sql, sql_params)
 
     return nil
@@ -40,8 +40,8 @@ class AccountRepository
   end
 
   def update(account)
-    sql = 'UPDATE accounts SET user_name = $1, email = $2, password = $3 WHERE id = $4;'
-    sql_params = [account.user_name, account.email, account.password, account.id]
+    sql = 'UPDATE accounts SET name = $1, user_name = $2, email = $3, password = $4 WHERE id = $5;'
+    sql_params = [account.name, account.user_name, account.email, account.password, account.id]
     result = DatabaseConnection.exec_params(sql, sql_params)
 
     return nil
@@ -54,6 +54,7 @@ class AccountRepository
     account = Account.new
     
     account.id = record['id'].to_i
+    account.name = record['name']
     account.user_name = record['user_name']
     account.email = record['email']
     account.password = record['password']

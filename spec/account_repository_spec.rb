@@ -18,7 +18,8 @@ describe AccountRepository do
 
     expect(accounts.length).to eq 2
     expect(accounts[0].id).to eq 1
-    expect(accounts[0].user_name).to eq 'George'
+    expect(accounts[0].name).to eq 'George'
+    expect(accounts[0].user_name).to eq 'G-unit'
     expect(accounts[0].email).to eq 'george@gmail.com'
     expect(accounts[0].password).to eq 'lol'
   end
@@ -28,7 +29,8 @@ describe AccountRepository do
 
     accounts = repo.find(1)
 
-    expect(accounts.user_name).to eq 'George'
+    expect(accounts.name).to eq 'George'
+    expect(accounts.user_name).to eq 'G-unit'
     expect(accounts.email).to eq 'george@gmail.com'
     expect(accounts.password).to eq 'lol'
   end
@@ -38,14 +40,16 @@ describe AccountRepository do
 
     accounts = repo.find(2)
 
-    expect(accounts.user_name).to eq 'Aphra'
+    expect(accounts.name).to eq 'Aphra'
+    expect(accounts.user_name).to eq 'Pepina'
     expect(accounts.email).to eq 'aphra@gmail.com'
     expect(accounts.password).to eq 'tbh'
   end
 
   it 'creates an account' do
     new_account = Account.new
-    new_account.user_name = 'Saxon'
+    new_account.name = 'Saxon'
+    new_account.user_name = 'Saxophone'
     new_account.email = 'saxon@gmail.com'
     new_account.password = 'hmu'
 
@@ -53,7 +57,8 @@ describe AccountRepository do
     repo.create(new_account)
 
     accounts = repo.all
-    expect(accounts[-1].user_name).to eq 'Saxon'
+    expect(accounts[-1].name).to eq 'Saxon'
+    expect(accounts[-1].user_name).to eq 'Saxophone'
     expect(accounts[-1].email).to eq 'saxon@gmail.com'
     expect(accounts[-1].password).to eq 'hmu'
   end
@@ -83,7 +88,8 @@ describe AccountRepository do
     repo = AccountRepository.new
 
     account = repo.find(1)
-    account.user_name = 'George'
+    account.name = 'George'
+    account.user_name = 'G-unit'
     account.email = 'george@gmail.com'
     account.password = 'lol'
 
@@ -91,7 +97,8 @@ describe AccountRepository do
 
     updated_account = repo.find(1)
     
-    expect(updated_account.user_name).to eq 'George'
+    expect(updated_account.name).to eq 'George'
+    expect(updated_account.user_name).to eq 'G-unit'
     expect(updated_account.email).to eq 'george@gmail.com'
     expect(updated_account.password).to eq 'lol'
   end
@@ -100,12 +107,12 @@ describe AccountRepository do
     repo = AccountRepository.new
 
     account = repo.find(2)
-    account.user_name = 'Aphra'
+    account.name = 'Aphra'
 
     repo.update(account)
     updated_account = repo.find(2)
     
-    expect(updated_account.user_name).to eq 'Aphra'
+    expect(updated_account.name).to eq 'Aphra'
     expect(updated_account.email).to eq 'aphra@gmail.com'
   end
 

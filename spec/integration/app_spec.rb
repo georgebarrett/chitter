@@ -18,7 +18,7 @@ describe Application do
 
   context 'POST accounts' do
     it 'creates a new account' do
-      response = post('/accounts', user_name: 'Rob', email: 'rob@gmail.com', password: 'atm')
+      response = post('/accounts', name: 'Rob', user_name: 'Words', email: 'rob@gmail.com', password: 'atm')
       
       expect(response.status).to eq (200)
       expect(response.body).to include('<h1>You have successfully created a Chitter account</h1>')

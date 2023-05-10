@@ -25,6 +25,7 @@ class Application < Sinatra::Base
   post '/accounts' do
     repo = AccountRepository.new
     new_account = Account.new
+    new_account.name = params[:name]
     new_account.user_name = params[:user_name]
     new_account.email = params[:email]
     new_account.password = params[:password]
