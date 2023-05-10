@@ -17,5 +17,21 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 
+  get '/new_account' do
+    return erb(:new_account)
+  end
+
+  post '/accounts' do
+    repo = AccountRepository.new
+    new_account = Account.new
+    new_account.user_name = params[:user_name]
+    new_account.email = params[:email]
+    new_account.password = params[:password]
+
+    repo.create(new_account)
+
+    return erb(:account_created)
+  end
+
 end
 
