@@ -136,5 +136,4 @@ describe AccountRepository do
 
     expect(result).to eq true
   end
-
 end

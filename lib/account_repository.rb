@@ -60,10 +60,11 @@ class AccountRepository
   end
 
   def sign_in(email, submitted_password)
+    
     account = find_by_email(email)
 
     return nil if account.nil?
-    
+
     stored_password = BCrypt::Password.new(account.password)
     return true if stored_password == submitted_password
 
