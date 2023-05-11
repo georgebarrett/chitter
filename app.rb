@@ -70,5 +70,9 @@ class Application < Sinatra::Base
     return erb(:list_posts)
   end
 
+  get '/login' do
+    erb(:login)
+  end
+
 end
 

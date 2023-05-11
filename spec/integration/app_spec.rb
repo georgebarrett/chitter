@@ -52,4 +52,11 @@ describe Application do
     end
   end
 
+  context 'POST /login' do
+    it 'returns 200' do
+      response = get('/login')
+      expect(response.status).to eq 200
+    end
+  end
+
 end
