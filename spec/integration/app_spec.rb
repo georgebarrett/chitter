@@ -65,5 +65,10 @@ describe Application do
       expect(response.body).to include '<input placeholder="Password" type="text" name="password">'
       expect(response.body).to include '<input type="submit">'
     end
+
+    it 'returns html with link back to homepage' do
+      response = get('/login')
+      expect(response.body).to include '<a href="/">Back to homepage</a>'
+    end
   end
 end
