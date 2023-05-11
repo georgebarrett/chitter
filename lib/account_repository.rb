@@ -1,4 +1,5 @@
 require_relative 'account'
+require 'bcrypt'
 
 class AccountRepository
 
@@ -24,8 +25,10 @@ class AccountRepository
   end
 
   def create(account)
+    encrypted_password = BCrypt::Password.create(account.password)
+    
     sql = 'INSERT INTO accounts (name, user_name, email, password) VALUES ($1, $2, $3, $4);'
-    sql_params = [account.name, account.user_name, account.email, account.password]
+    sql_params = [account.name, account.user_name, account.email, encrypted_password]
     result = DatabaseConnection.exec_params(sql, sql_params)
 
     return nil
@@ -54,6 +57,17 @@ class AccountRepository
     result = DatabaseConnection.exec_params(query, param)[0]
 
     return record_to_post_object(result)
+  end
+
+  def sign_in(email, submitted_password)
+    account = find_by_email(email)
+
+    return nil if account.nil?
+    
+    stored_password = BCrypt::Password.new(account.password)
+    return true if stored_password == submitted_password
+
+    return false
   end
 
 

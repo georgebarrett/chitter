@@ -61,7 +61,6 @@ describe AccountRepository do
     expect(accounts[-1].name).to eq 'Saxon'
     expect(accounts[-1].user_name).to eq 'Saxophone'
     expect(accounts[-1].email).to eq 'saxon@gmail.com'
-    expect(accounts[-1].password).to eq 'hmu'
   end
 
   it 'deletes an account with the id of 1' do
@@ -101,7 +100,6 @@ describe AccountRepository do
     expect(updated_account.name).to eq 'George'
     expect(updated_account.user_name).to eq 'G-unit'
     expect(updated_account.email).to eq 'george@gmail.com'
-    expect(updated_account.password).to eq 'lol'
   end
 
   it 'updates only one value of an account' do
@@ -122,6 +120,21 @@ describe AccountRepository do
     account = repo.find_by_email('george@gmail.com')
 
     expect(account.user_name).to eq 'G-unit'
+  end
+
+  it 'Logs a user in if their email and password are correct' do
+    new_account = Account.new
+    new_account.name = 'Roger'
+    new_account.user_name = 'Podge'
+    new_account.email = 'roger@gmail.com'
+    new_account.password = 'lol'
+
+    accounts = AccountRepository.new
+    accounts.create(new_account)
+    
+    result = accounts.sign_in('roger@gmail.com', 'lol')
+
+    expect(result).to eq true
   end
 
 end
