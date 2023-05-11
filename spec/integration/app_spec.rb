@@ -21,7 +21,7 @@ describe Application do
       response = post('/accounts', name: 'Rob', user_name: 'Words', email: 'rob@gmail.com', password: 'atm')
       
       expect(response.status).to eq (200)
-      expect(response.body).to include('<h1>You have successfully created a Chitter account</h1>')
+      expect(response.body).to include('<h1>You have successfully created a Chitter account.</h1>')
     end
 
     it 'fails if email or username already exists' do
@@ -70,4 +70,20 @@ describe Application do
       expect(response.body).to include '<a href="/">Back to homepage</a>'
     end
   end
+
+  # context '/POST login' do
+  #   it 'logs in when user enters their details' do
+  #     account = Account.new
+  #     account.name = 'George'
+  #     account.user_name = 'G-unit'
+  #     account.email = 'george@gmail.com'
+  #     account.password = 'lol'
+
+  #     repo = AccountRepository.new
+  #     repo.create(account)
+
+  #     response = post('/login', email: 'george@gmail.com', password: 'lol')
+  #     expect(response.body).to include('<h1>Success!</h1>')
+  #   end
+  # end
 end
