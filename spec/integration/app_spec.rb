@@ -27,8 +27,7 @@ describe Application do
     it 'fails if email or username already exists' do
       response = post('/accounts', name: 'George', username: 'G-unit', email: 'george@gmail.com', password: 'lol')
 
-      expect(response.status).to eq(400)
-      expect(response.body).to include('This account already exists.')
+      expect(response.body).to include('<h1>This account already exists.</h1>')
     end
   end
 

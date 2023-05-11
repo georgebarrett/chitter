@@ -32,8 +32,7 @@ class Application < Sinatra::Base
     repo = AccountRepository.new
 
     if account_already_exists
-      status 400
-      return 'This account already exists.'
+      return erb(:account_already_exists)
     else
       repo.create(new_account)
       return erb(:account_created)
