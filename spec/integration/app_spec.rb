@@ -52,11 +52,18 @@ describe Application do
     end
   end
 
-  context 'POST /login' do
+  context 'GET /login' do
     it 'returns 200' do
       response = get('/login')
       expect(response.status).to eq 200
     end
-  end
 
+    it 'returns html with login form using POST /login route' do
+      response = get('login')
+      expect(response.body).to include '<form action="/login" method="POST">'
+      expect(response.body).to include '<input placeholder="Email" type="text" name="email">'
+      expect(response.body).to include '<input placeholder="Password" type="text" name="password">'
+      expect(response.body).to include '<input type="submit">'
+    end
+  end
 end
