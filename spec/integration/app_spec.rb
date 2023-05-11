@@ -36,7 +36,7 @@ describe Application do
       response = post('/posts', message: 'EVEN MORE BREAKING NEWS', time_made: '2023-05-01 11:45:23')
 
       expect(response.status).to eq (200)
-      expect(response.body).to include('<h1>You have successfully created a new post</h1>')
+      expect(response.body).to include('<h1>You have successfully created a new post.</h1>')
     end
   end
 
