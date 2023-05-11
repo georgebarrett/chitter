@@ -47,6 +47,15 @@ class AccountRepository
     return nil
   end
 
+  def find_by_email(email)
+    query = 'SELECT * FROM accounts WHERE email = $1;'
+    param = [email]
+
+    result = DatabaseConnection.exec_params(query, param)[0]
+
+    return record_to_post_object(result)
+  end
+
 
   private
 

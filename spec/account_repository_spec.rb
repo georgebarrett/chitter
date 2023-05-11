@@ -1,4 +1,5 @@
 require 'account_repository'
+require 'bcrypt'
 
 def reset_accounts_table
   seed_sql = File.read('spec/seeds_accounts.sql')
@@ -84,7 +85,7 @@ describe AccountRepository do
     expect(all_accounts.length).to eq 0
   end
 
-  it 'updates an entire post' do 
+  it 'updates an entire account' do 
     repo = AccountRepository.new
 
     account = repo.find(1)
@@ -114,6 +115,13 @@ describe AccountRepository do
     
     expect(updated_account.name).to eq 'Aphra'
     expect(updated_account.email).to eq 'aphra@gmail.com'
+  end
+
+  it 'finds an account by email' do
+    repo = AccountRepository.new
+    account = repo.find_by_email('george@gmail.com')
+
+    expect(account.user_name).to eq 'G-unit'
   end
 
 end
