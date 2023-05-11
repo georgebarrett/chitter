@@ -136,4 +136,20 @@ describe AccountRepository do
 
     expect(result).to eq true
   end
+
+  it 'Fails if a user tries to log in with an incorrect password' do
+    new_account = Account.new
+    new_account.name = 'Roger'
+    new_account.user_name = 'Podge'
+    new_account.email = 'roger@gmail.com'
+    new_account.password = 'lol'
+
+    accounts = AccountRepository.new
+    accounts.create(new_account)
+    
+    result = accounts.sign_in('roger@gmail.com', 'bob')
+
+    expect(result).to eq false
+  end
+
 end
