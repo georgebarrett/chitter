@@ -73,5 +73,24 @@ class Application < Sinatra::Base
     erb(:login)
   end
 
+  post '/login' do
+    repo = AccountRepository.new
+    email = params[:submitted_email]
+    password = params[:submitted_password]
+
+    if repo.sign_in(email, password) == true
+      @account = repo.find_by_email(email)
+      session[:user_id] = @account.id
+      return erb(:login_success)
+    else
+      status 400
+      return 'Email and password do not match. Please go back and try again'
+    end
+  end
+
+  def invalid_input(input)
+    input != '' && !input.match(/[<>]/)
+  end
+
 end
 

@@ -71,19 +71,21 @@ describe Application do
     end
   end
 
-  # context '/POST login' do
-  #   it 'logs in when user enters their details' do
-  #     account = Account.new
-  #     account.name = 'George'
-  #     account.user_name = 'G-unit'
-  #     account.email = 'george@gmail.com'
-  #     account.password = 'lol'
+  context 'POST /login' do
+    it 'Successfully authenticates user if email and password match' do
+      new_account = Account.new
+      new_account.name = 'Roger'
+      new_account.user_name = 'Podge'
+      new_account.email = 'roger@gmail.com'
+      new_account.password = 'blah'
 
-  #     repo = AccountRepository.new
-  #     repo.create(account)
+      accounts = AccountRepository.new
+      accounts.create(new_account)
+      
+      response = post('/login', submitted_email: 'roger@gmail.com', submitted_password: 'blah')
 
-  #     response = post('/login', email: 'george@gmail.com', password: 'lol')
-  #     expect(response.body).to include('<h1>Success!</h1>')
-  #   end
-  # end
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Login successfull!')
+    end
+  end
 end
