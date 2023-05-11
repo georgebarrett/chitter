@@ -87,5 +87,20 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('Login successfull!')
     end
+
+    it 'Fails if email or password do not match' do
+      new_account = Account.new
+      new_account.name = 'Roger'
+      new_account.user_name = 'Podge'
+      new_account.email = 'roger@gmail.com'
+      new_account.password = 'blah'
+
+      accounts = AccountRepository.new
+      accounts.create(new_account)
+      
+      response = post('/login', submitted_email: 'roger@gmail.com', submitted_password: 'meh')
+
+      expect(response.body).to include('<h1>Log in unsuccessful</h1>')
+    end
   end
 end

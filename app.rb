@@ -83,8 +83,7 @@ class Application < Sinatra::Base
       session[:user_id] = @account.id
       return erb(:login_success)
     else
-      status 400
-      return 'Email and password do not match. Please go back and try again'
+      return erb(:login_failure)
     end
   end
 
