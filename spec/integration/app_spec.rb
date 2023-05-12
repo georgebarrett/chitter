@@ -123,10 +123,29 @@ describe Application do
       expect(response.body).to include('<body>')
     end
 
-    it 'Account page is not accessible when user is not authenticated' do
+    it 'account page is not accessible when user is not authenticated' do
       response = get('/account_page')
       
       expect(response.status).to eq(302)
+    end
+  end
+
+  context 'GET /logout' do
+    it 'Logs user out of their session' do
+      new_account = Account.new
+      new_account.name = 'Graham'
+      new_account.user_name = 'Graham101'
+      new_account.email = 'graham@gmail.com'
+      new_account.password = 'splund'
+
+      accounts = AccountRepository.new
+      accounts.create(new_account)
+      
+      post('/login', submitted_email: 'graham@gmail.com', submitted_password: 'splund')
+
+      logout = get('/logout')
+      
+      expect(logout.status).to eq(302)
     end
   end
 end
