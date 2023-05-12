@@ -4,10 +4,14 @@ require_relative 'lib/database_connection'
 require_relative 'lib/account_repository'
 require_relative 'lib/post_repository'
 require 'date'
+require 'sinatra/base'
 
 DatabaseConnection.connect
 
 class Application < Sinatra::Base
+
+  enable :sessions
+
   configure :development do
     register Sinatra::Reloader
     also_reload 'lib/account_repository'
@@ -80,16 +84,25 @@ class Application < Sinatra::Base
 
     if repo.sign_in(email, password) == true
       @account = repo.find_by_email(email)
-      session[:user_id] = @account.id
+      session[:account_id] = @account.id
       return erb(:login_success)
     else
       return erb(:login_failure)
     end
   end
 
-  def invalid_input(input)
-    input != '' && !input.match(/[<>]/)
+  get '/account_page' do
+    if session[:account_id] == nil
+      return redirect('/login')
+    else
+      @account = AccountRepository.new.find(session[:account_id])
+      return erb(:account_page)
+    end
   end
+
+  # def invalid_input(input)
+  #   input != '' && !input.match(/[<>]/)
+  # end
 
 end
 

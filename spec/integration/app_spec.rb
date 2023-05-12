@@ -103,4 +103,24 @@ describe Application do
       expect(response.body).to include('<h1>Log in unsuccessful</h1>')
     end
   end
+
+  context 'GET /account_page' do
+    it 'the account page is accessible when user is logged in' do
+      new_account = Account.new
+      new_account.name = 'Denise'
+      new_account.user_name = 'Sneeze'
+      new_account.email = 'denise@gmail.com'
+      new_account.password = 'robot'
+
+      accounts = AccountRepository.new
+      accounts.create(new_account)
+      
+      post('/login', submitted_email: 'denise@gmail.com', submitted_password: 'robot')
+
+      response = get('/account_page')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<body>')
+    end
+  end
 end
