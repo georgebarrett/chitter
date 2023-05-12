@@ -122,5 +122,11 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('<body>')
     end
+
+    it 'Account page is not accessible when user is not authenticated' do
+      response = get('/account_page')
+      
+      expect(response.status).to eq(302)
+    end
   end
 end
